@@ -21,7 +21,7 @@ app.use(cors({
   credentials: true
 }));
 
-app.get('/', (req, res) => {
+app.get('/', async(req, res) => {
   res.send('Auth service is running.');
 })
 
