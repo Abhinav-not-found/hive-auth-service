@@ -5,8 +5,8 @@
   "main": "auth.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon gateway.js",
-    "start": "node gateway.js",
+    "dev": "nodemon auth.js",
+    "start": "node auth.js",
     "build": "npm install "
   },
   "keywords": [],
