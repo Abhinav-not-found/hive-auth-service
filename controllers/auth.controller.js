@@ -67,9 +67,9 @@ export const login = async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure:true,
+      secure: true,
       sameSite: "strict",
-      maxAge: 60 * 60 * 1000 
+      maxAge: 60 * 60 * 1000
     });
 
     res.status(200).json({
@@ -83,23 +83,23 @@ export const login = async (req, res, next) => {
   }
 };
 
-export const getUserInfo = async (req,res,next)=>{
+export const getUserInfo = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id).select("-password")
-    if(!user){
-       return res.status(404).json({ message: "User not found" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
-    res.status(200).json({data:user})
+    res.status(200).json({ data: user })
   } catch (error) {
     next(error)
   }
 }
 
-export const logout = async (req,res,next)=>{
-try {
-  res.clearCookie('token',{httpOnly: true, secure: false, sameSite: 'strict' })
-  res.status(200).json({ message: 'Logged out' });
-} catch (error) {
-  next(error)
-}
+export const logout = async (req, res, next) => {
+  try {
+    res.clearCookie('token', { httpOnly: true, secure: false, sameSite: 'strict' })
+    res.status(200).json({ message: 'Logged out' });
+  } catch (error) {
+    next(error)
+  }
 }
