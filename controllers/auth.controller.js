@@ -5,12 +5,6 @@ import jwt from 'jsonwebtoken'
 export const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
-    if (!name || !email || !password) {
-      return res.status(400).json({
-        code: "MISSING_FIELDS",
-        message: "All fields are required"
-      })
-    }
 
     const userExist = await User.findOne({ email })
 
