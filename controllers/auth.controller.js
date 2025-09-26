@@ -97,3 +97,25 @@ export const logout = async (req, res, next) => {
     next(error)
   }
 }
+
+export const updateUserInfo = async (req, res, next) => {
+  try {
+    const { name, bio } = req.body
+    const userId = req.user.id
+
+    const user = await User.findById(userId)
+    if (!user) {
+      res.status(400).json({ message: "User not found" })
+    }
+
+    if (name) user.name = name
+    if (bio) user.bio = bio
+
+    await user.save();
+
+    res.status(200).json({ message: 'User Updated!!!' })
+
+  } catch (error) {
+    next(error)
+  }
+}
