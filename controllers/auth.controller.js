@@ -1,6 +1,7 @@
 import User from '../models/auth.model.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { imagekit } from "../config/imagekit.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -119,3 +120,23 @@ export const updateUserInfo = async (req, res, next) => {
     next(error)
   }
 }
+
+export const uploadProfilePic = async (req, res, next) => {
+  console.log('reached service')
+  try {
+    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+
+    const uploadResponse = await imagekit.upload({
+      file: req.file.buffer,
+      fileName: `${Date.now()}_${req.file.originalname}`,
+      folder: "/Hive/User_Profile_Pictures",
+    });
+
+    const userId = req.user.id;
+    await User.findByIdAndUpdate(userId, { profileImage: uploadResponse.url });
+
+    res.status(200).json({ message: 'upload success', url: uploadResponse.url });
+  } catch (err) {
+    next(err);
+  }
+};
