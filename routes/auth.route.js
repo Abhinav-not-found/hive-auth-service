@@ -6,7 +6,8 @@ import {
   getUserInfo,
   logout,
   updateUserInfo,
-  uploadProfilePic
+  uploadProfilePic,
+  getUserInfoById
 } from '../controllers/auth.controller.js'
 import authenticateToken from '../auth.middleware.js'
 
@@ -21,6 +22,7 @@ router.post('/login', login)
 router.post('/logout', logout)
 router.get('/getUserInfo', authenticateToken, getUserInfo)
 router.put('/update', authenticateToken, updateUserInfo)
+router.get('/getUserInfoById/:userId',getUserInfoById)
 
 router.put('/upload', authenticateToken, uploadSingleImage, uploadProfilePic)
 

@@ -122,7 +122,6 @@ export const updateUserInfo = async (req, res, next) => {
 }
 
 export const uploadProfilePic = async (req, res, next) => {
-  console.log('reached service')
   try {
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
@@ -138,5 +137,16 @@ export const uploadProfilePic = async (req, res, next) => {
     res.status(200).json({ message: 'upload success', url: uploadResponse.url });
   } catch (err) {
     next(err);
+  }
+};
+
+export const getUserInfoById = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId).select("name bio username profileImage");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
   }
 };
