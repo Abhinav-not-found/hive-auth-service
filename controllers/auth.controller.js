@@ -103,9 +103,9 @@ export const logout = async (req, res, next) => {
 export const updateUserInfo = async (req, res, next) => {
   try {
     const { name, bio } = req.body
-    const userId = req.user.id
+    const {id} = req.params
 
-    const user = await User.findById(userId)
+    const user = await User.findById(id)
     if (!user) {
       res.status(400).json({ message: "User not found" })
     }
@@ -132,8 +132,8 @@ export const uploadProfilePic = async (req, res, next) => {
       folder: "/Hive/User_Profile_Pictures",
     });
 
-    const userId = req.user.id;
-    await User.findByIdAndUpdate(userId, { profileImage: uploadResponse.url });
+    const {id} = req.params;
+    await User.findByIdAndUpdate(id, { profileImage: uploadResponse.url });
 
     res.status(200).json({ message: 'upload success', url: uploadResponse.url });
   } catch (err) {

@@ -21,9 +21,9 @@ router.post('/register', register)
 router.post('/login', login)
 router.post('/logout', logout)
 router.get('/getUserInfo/:id', getUserInfo)
-router.put('/update', updateUserInfo)
+router.put('/update/:id', updateUserInfo)
 router.get('/getUserInfoById/:userId',getUserInfoById)
 
-router.put('/upload', uploadSingleImage, uploadProfilePic)
+router.put('/upload/:id', uploadSingleImage, uploadProfilePic)
 
 export default router
