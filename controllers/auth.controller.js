@@ -80,7 +80,8 @@ export const login = async (req, res, next) => {
 
 export const getUserInfo = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user.id).select("-password")
+    const {id} = req.params
+    const user = await User.findById(id).select("-password")
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 router.post('/register', register)
 router.post('/login', login)
 router.post('/logout', logout)
-router.get('/getUserInfo', authenticateToken, getUserInfo)
+router.get('/getUserInfo/:id', getUserInfo)
 router.put('/update', authenticateToken, updateUserInfo)
 router.get('/getUserInfoById/:userId',getUserInfoById)
 
